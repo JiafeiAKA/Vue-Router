@@ -2,13 +2,22 @@
   import EventCard from '@/components/EventCard.vue'
   import EventDetails from '@/components/EventDetails.vue'
   import { Event } from '@/types/Event'
-  import { ref, onMounted } from 'vue'
+  import { ref, onMounted, computed } from 'vue'
   import EventService from '@/services/EventService'
 
   const events = ref<Event[]>(null)
 
+  const props = defineProps({
+    page: {
+      type:Number,
+      required: true
+    }
+  })
+
+  const page = computed(() => props.page)
+
   onMounted(() => {
-    EventService.getEvents()
+    EventService.getEvents(2, page.value)
     .then((response) => {
       events.value = response.data
     })
@@ -23,8 +32,10 @@
   <!-- new element -->
   <div class="events">
     <EventCard v-for="event in events" :key="event.id" :event="event"/>
-    <EventDetails v-for="event in events" :key="event.id" :event="event"/>
-  </div>
+    <StudentList v-for="event in events" :key="event.id" :event="event"/>
+    </div>
+    <RouterLink :to="{ name: 'event-list-view', query: { page: page - 1 } }" rel="prev" v-if="page != 1">Prev Page</RouterLink>
+    <RouterLink :to="{ name: 'event-list-view', query: { page: page + 1 } }" rel="next">Next Page</RouterLink>
 </template>
 
 <style scoped>
