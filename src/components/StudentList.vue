@@ -1,35 +1,29 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import EventListView from '@/views/EventListView.vue'
-import AboutView from '@/views/AboutView.vue'
-import EventDetailView from '@/views/EventDetailView.vue'
-import StudentView from '@/views/StudentView.vue'
+<template>
+  <div class="event-details">
+    <span class="category">{{ event.category }}</span>
+    <span class="organizer">{{ event.organizer }}</span>
+  </div>
+</template>
 
-const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes: [
-    {
-      path: '/',
-      name: 'event-list-view',
-      component: EventListView,
-      props: (route) => ({ page: parseInt(route.query.page?.toString() || '1' )})
-    },
-    {
-      path: '/event/:id',
-      name: 'event-detail-view',
-      component: EventDetailView,
-      props: true
-    },
-    {
-      path: '/about',
-      name: 'about',
-      component: AboutView
-    },
-    {
-      path: '/Student',
-      name: 'Student',
-      component: StudentView
-    }
-  ]
-})
+<script setup lang="ts">
+import { defineProps } from 'vue'
+import { type Event } from '@/types'
 
-export default router
+defineProps<{ event: Event }>()
+</script>
+
+<style scoped>
+.event-details {
+  text-align: right;
+  font-size: 16px;
+  padding: 20px;
+  width: 250px;
+  cursor: pointer;
+  border: 1px solid #39495c;
+  margin-bottom: 10px;
+}
+
+.category, .organizer {
+  display: block;
+}
+</style>
