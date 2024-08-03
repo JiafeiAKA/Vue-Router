@@ -4,6 +4,7 @@ import { type Event } from '@/types'
 
 const props = defineProps<{
   event: Event
+  id: Event
 }>()
 const { event } = toRefs(props)
 </script>
