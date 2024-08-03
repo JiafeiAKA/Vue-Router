@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
+import { ref } from 'vue'
 
+const pageSize = ref(2)
 </script>
 
 <template>
@@ -8,7 +10,7 @@ import { RouterLink, RouterView } from 'vue-router'
     <header>
       <div class="wrapper">
         <nav>
-          <RouterLink :to="{ name: 'event-list-view'}">Event</RouterLink>
+          <RouterLink :to="{ name: 'event-list-view', query: { pageSize: pageSize } }">Event</RouterLink>
           <RouterLink :to="{ name: 'about' }">About</RouterLink>
           <RouterLink :to="{ name: 'Student' }">Student</RouterLink>
         </nav>
@@ -19,7 +21,6 @@ import { RouterLink, RouterView } from 'vue-router'
 </template>
 
 <style>
-
 #layout {
   font-family: Avenir, Arial, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -33,15 +34,14 @@ nav {
 }
 
 nav a {
- font-weight: bold;
- color: #2c3e50;
+  font-weight: bold;
+  color: #2c3e50;
 }
 
 nav a.router-link-exact-active {
   color: #42b983;
 }
 h2 {
-  font-size: 20px
+  font-size: 20px;
 }
-
 </style>
